@@ -1,0 +1,27 @@
+
+TP MAR 2017/2018
+
+ROUDANI, BENKEBIR,PLANCHAIS
+
+1) Création de hélicoptère : 
+La première difficulté a été le chargement des pales de turbines. Nous avons donc créé nous même ce mesh dans "helico.js". 
+//function helico_moteur_pale (scene, init_angle, diametre){
+Pour nous aider dans la géométrie spatiale, nous avons créé un repère 3D dans Util.js. 
+//this.draw_ref= function (sc){
+
+2) Les particules : 
+La deuxième étape de notre projet fut la création de la fumée des turbines. Nous avons créé pour cela un fichier particle.js. Nous avons rencontré des erreurs de mise au point, et avons dû pour les résoudre construire des fonctions de wrap des objets de ParticleSystem.
+Il nous a été difficile d'effectuer une rotation du cône de particules suivant un axe arbitraire (pour obtenir l'effet d'échappement). Nous avons dû créer un point fictif pour l'entrée de la turbine et un autre pour la sortie, puis nous avons fait la différence entre les positions respectives. Ainsi les particules sortent suivant l'axe des tuyères.   Nous faisons varier le débit de sortie en modifiant l'objet lifetime du modifier (fonction "this.set= function (posv, dirv, rpm, nb){" de la classe EngineExhaust (fichier "particle.js"). 
+
+3) Bezier :
+Une fois avoir obtenu un code de démo basique, nous sommes revenu sur TP1 et la courbe de Bezier pour la position de l'hélicoptère.  A ce stade, nous vous invitons à ouvrir le fichier de démo "--> marace10.4.html" qui valide les particules d'échappement, Bezier et l'orientation des turbines ainsi que leurs vitesses.
+
+4) Cameras et Keycode: 
+Nous créons un CameraManager dans le fichier "camera.js" et utilisons un tri sur les distances aux cameras ("this.choose_nearest =function(car){") pour sélectionner l'active_camera en mode "set_mode_auto" . 
+Touche "g" : set_mode_auto pour conduire le vehicule spatial.
+Touche "j" : set_mode_helicopilot (seule l'altitude de l'helico peut varier : touches "a" et "e") 
+A ce stade, nous avons un fichier de démo "--> marace10.5.html".
+
+5)Nous confions au script helicoIA.js la gestion des angles (et de la fumée) des turbines en fonction de la vitesse (l'orientation des turbines), de l’accélération (la vitesse des pales et la fumée) et de la trajectoire (orientation des turbines à basse vitesse pour aider à tourner l'hélicoptère). Pour ce faire, nous donnons à la classe HelicopilotIA l'accès à l'helico, à la scene au travers de l'helico, aux 2 cones de particules de fumée et au cameraManager ("this.setup_camera= function (cam_man){").  
+
+6)La classe HelicoautoIA avec Bezier pour le calcul de trajectoire  (touche "h" suivi de la touche "z"), suivit de la touche "s" pour placer la camera à la fin de la trajectoire. La touche "j" active l'helico manuel. Faites varier l'altitude avec "a" et "e" , puis appuyez sur "d" pour recaler la camera.
